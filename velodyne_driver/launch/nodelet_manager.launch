@@ -3,16 +3,16 @@
 
 <launch>
 
-  <arg name="device_ip" default="" />
+  <arg name="device_ip" default="192.168.1.201" />
   <arg name="frame_id" default="velodyne" />
   <arg name="manager" default="$(arg frame_id)_nodelet_manager" />
-  <arg name="model" default="64E" />
+  <arg name="model" default="VLP16" />
   <arg name="pcap" default="" />
   <arg name="port" default="2368" />
   <arg name="read_fast" default="false" />
   <arg name="read_once" default="false" />
   <arg name="repeat_delay" default="0.0" />
-  <arg name="rpm" default="600.0" />
+  <arg name="rpm" default="1200.0" />
   <arg name="cut_angle" default="-0.01" />
 
   <!-- start nodelet manager -->
@@ -31,6 +31,8 @@
     <param name="repeat_delay" value="$(arg repeat_delay)"/>
     <param name="rpm" value="$(arg rpm)"/>
     <param name="cut_angle" value="$(arg cut_angle)"/>
-  </node>    
+  </node>
+
+  <node pkg="velodyne_driver" type="velodyne_utils.py" name="velodyne_utils" />    
 
 </launch>

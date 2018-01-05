@@ -4,6 +4,7 @@ project(velodyne_driver)
 set(${PROJECT_NAME}_CATKIN_DEPS 
     diagnostic_updater
     dynamic_reconfigure
+    rospy
     nodelet
     roscpp
     tf
@@ -24,7 +25,7 @@ generate_dynamic_reconfigure_options(cfg/VelodyneNode.cfg)
 
 # objects needed by other ROS packages that depend on this one
 catkin_package(CATKIN_DEPENDS ${${PROJECT_NAME}_CATKIN_DEPS}
-               INCLUDE_DIRS include
+               INCLUDE_DIRS include  scripts
                LIBRARIES velodyne_input)
 
 # compile the driver and input library
@@ -39,6 +40,8 @@ install(DIRECTORY launch/
         DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/launch)
 install(PROGRAMS src/vdump
         DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
+catkin_install_python(PROGRAMS scripts/velodyne_utils.py
+	DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
 
 if (CATKIN_ENABLE_TESTING)
 
